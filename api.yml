@@ -1,0 +1,101 @@
+openapi: 3.0.1
+info:
+  title: Sawit Pro
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /estate:
+    post:
+      summary: This is just a test endpoint to get you started.
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostEstateRequest'
+            example:
+              length: 10
+              width: 10
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostEstateResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security: []
+      x-apidog-folder: User Service
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/590451/apis/api-8415815-run
+components:
+  schemas:
+    PostEstateRequest:
+      type: object
+      properties:
+        length:
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: gte=0
+        width:
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: gte=0
+      required:
+        - length
+        - width
+      x-apidog-orders:
+        - length
+        - width
+      x-apidog-ignore-properties: []
+      x-apidog-folder: Schemas
+    PostEstateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+      required:
+        - id
+        - message
+      x-apidog-orders:
+        - id
+        - message
+      x-apidog-ignore-properties: []
+      x-apidog-folder: Schemas
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+      x-apidog-orders:
+        - message
+      x-apidog-ignore-properties: []
+      x-apidog-folder: Schemas
+    HelloResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          examples:
+            - Hello, World!
+      x-apidog-orders:
+        - message
+      x-apidog-ignore-properties: []
+      x-apidog-folder: Schemas
+  securitySchemes: {}
+servers: []
