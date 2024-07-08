@@ -51,10 +51,10 @@ func (mr *MockRepositoryInterfaceMockRecorder) FetchEstateTrees(ctx, estateId in
 }
 
 // GetEstateByID mocks base method.
-func (m *MockRepositoryInterface) GetEstateByID(ctx context.Context, input GetEstateByIDInput) (GetEstateByIDOutput, error) {
+func (m *MockRepositoryInterface) GetEstateByID(ctx context.Context, input GetEstateByIDInput) (Estate, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetEstateByID", ctx, input)
-	ret0, _ := ret[0].(GetEstateByIDOutput)
+	ret0, _ := ret[0].(Estate)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

@@ -13,6 +13,6 @@ import (
 type RepositoryInterface interface {
 	StoreEstate(ctx context.Context, input StoreEstateInput) (output StoreEstateOutput, err error)
 	StoreEstateIdTree(ctx context.Context, input StoreEstateIdTreeInput) (output StoreEstateIdTreeOutput, err error)
-	GetEstateByID(ctx context.Context, input GetEstateByIDInput) (output GetEstateByIDOutput, err error)
+	GetEstateByID(ctx context.Context, input GetEstateByIDInput) (output Estate, err error)
 	FetchEstateTrees(ctx context.Context, estateId uuid.UUID) (outputs []EstateTree, err error)
 }

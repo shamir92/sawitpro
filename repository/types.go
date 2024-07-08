@@ -54,6 +54,12 @@ type FetchEstateStatsOutput struct {
 	Median int
 }
 
+type Estate struct {
+	Id     uuid.UUID
+	Width  int
+	Length int
+}
+
 type EstateTree struct {
 	Id     uuid.UUID
 	Height int

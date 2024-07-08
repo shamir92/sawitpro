@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (r *Repository) GetEstateByID(ctx context.Context, input GetEstateByIDInput) (output GetEstateByIDOutput, err error) {
+func (r *Repository) GetEstateByID(ctx context.Context, input GetEstateByIDInput) (output Estate, err error) {
 	err = r.Db.QueryRowContext(ctx, "SELECT  width, length FROM estate WHERE id = $1", input.Id).Scan(&output.Width, &output.Length)
 	if err != nil {
 		return
@@ -36,7 +36,7 @@ func (r *Repository) StoreEstateIdTree(ctx context.Context, input StoreEstateIdT
 func (r *Repository) FetchEstateTrees(ctx context.Context, estateId uuid.UUID) (outputs []EstateTree, err error) {
 	row, err := r.Db.QueryContext(ctx, "SELECT id, height, x, y FROM estate_tree WHERE estate_id = $1", estateId)
 	if err != nil {
-		return
+		return nil, err
 	}
 	defer row.Close()
 
