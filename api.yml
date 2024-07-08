@@ -25,7 +25,7 @@ paths:
           description: OK
           content:
             application/json:
-              schema:
+              schema: &ref_0
                 $ref: '#/components/schemas/PostEstateResponse'
         '404':
           description: Not found
@@ -37,19 +37,157 @@ paths:
       x-apidog-folder: User Service
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/590451/apis/api-8415815-run
+  /estate/{id}/tree:
+    post:
+      summary: /estate/{id}/tree
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostEstateTreeRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: *ref_0
+      security: []
+      x-apidog-folder: User Service
+      x-apidog-status: developing
+      x-run-in-apidog: https://app.apidog.com/web/project/590451/apis/api-8451453-run
+  /estate/{id}/stats:
+    get:
+      summary: /estate/{id}/stats
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEstateIdStatsResponse'
+      security: []
+      x-apidog-folder: User Service
+      x-apidog-status: developing
+      x-run-in-apidog: https://app.apidog.com/web/project/590451/apis/api-8451645-run
+  /estate/{id}/drone-plan:
+    get:
+      summary: /estate/{id}/drone-plan
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: max_distance
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEstateIDDronePlanResponse'
+      security: []
+      x-apidog-folder: User Service
+      x-apidog-status: developing
+      x-run-in-apidog: https://app.apidog.com/web/project/590451/apis/api-8451647-run
 components:
   schemas:
+    GetEstateIdStatsResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        min:
+          type: integer
+        max:
+          type: integer
+        median:
+          type: integer
+      x-apidog-orders:
+        - count
+        - min
+        - max
+        - median
+      required:
+        - count
+        - min
+        - max
+        - median
+      x-apidog-ignore-properties: []
+      x-apidog-folder: Schemas
+    PostEstateTreeRequest:
+      type: object
+      properties:
+        x:
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: required,gte=1
+          examples:
+            - 10
+          default: 10
+        'y':
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: required,gte=1
+        height:
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: required,gte=1,lte=30
+      x-apidog-orders:
+        - x
+        - 'y'
+        - height
+      required:
+        - x
+        - 'y'
+        - height
+      x-apidog-ignore-properties: []
+      x-apidog-folder: Schemas
     PostEstateRequest:
       type: object
       properties:
         length:
           type: integer
           x-oapi-codegen-extra-tags:
-            validate: gte=0
+            validate: required,gte=1,lte=50000
+          minimum: 1
+          maximum: 50000
         width:
           type: integer
           x-oapi-codegen-extra-tags:
-            validate: gte=0
+            validate: required,gte=1,lte=50000
+          minimum: 1
+          maximum: 50000
       required:
         - length
         - width
@@ -71,6 +209,17 @@ components:
       x-apidog-orders:
         - id
         - message
+      x-apidog-ignore-properties: []
+      x-apidog-folder: Schemas
+    GetEstateIDDronePlanResponse:
+      type: object
+      properties:
+        distance:
+          type: integer
+      x-apidog-orders:
+        - distance
+      required:
+        - distance
       x-apidog-ignore-properties: []
       x-apidog-folder: Schemas
     ErrorResponse:

@@ -48,3 +48,18 @@ func (mr *MockRepositoryInterfaceMockRecorder) GetTestById(ctx, input interface{
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTestById", reflect.TypeOf((*MockRepositoryInterface)(nil).GetTestById), ctx, input)
 }
+
+// StoreEstate mocks base method.
+func (m *MockRepositoryInterface) StoreEstate(ctx context.Context, input StoreEstateInput) (StoreEstateOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "StoreEstate", ctx, input)
+	ret0, _ := ret[0].(StoreEstateOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// StoreEstate indicates an expected call of StoreEstate.
+func (mr *MockRepositoryInterfaceMockRecorder) StoreEstate(ctx, input interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StoreEstate", reflect.TypeOf((*MockRepositoryInterface)(nil).StoreEstate), ctx, input)
+}

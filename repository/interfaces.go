@@ -4,9 +4,15 @@
 // interfaces using mockgen. See the Makefile for more information.
 package repository
 
-import "context"
+import (
+	"context"
+
+	"github.com/google/uuid"
+)
 
 type RepositoryInterface interface {
-	GetTestById(ctx context.Context, input GetTestByIdInput) (output GetTestByIdOutput, err error)
 	StoreEstate(ctx context.Context, input StoreEstateInput) (output StoreEstateOutput, err error)
+	StoreEstateIdTree(ctx context.Context, input StoreEstateIdTreeInput) (output StoreEstateIdTreeOutput, err error)
+	GetEstateByID(ctx context.Context, input GetEstateByIDInput) (output GetEstateByIDOutput, err error)
+	FetchEstateTrees(ctx context.Context, estateId uuid.UUID) (outputs []EstateTree, err error)
 }

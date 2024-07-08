@@ -38,5 +38,5 @@ $(INTERFACES_GEN_GO_FILES): %.mock.gen.go: %.go
 	@echo "Generating mocks $@ for $<"
 	mockgen -source=$< -destination=$@ -package=$(shell basename $(dir $<))
 
-run/server: 
+server/start: 
 	go run cmd/main.go
