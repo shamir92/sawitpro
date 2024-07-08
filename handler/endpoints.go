@@ -64,7 +64,22 @@ func (s *Server) GetEstateIdDronePlan(ctx echo.Context, id string, params genera
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, "estate tree failed to be fetched")
 	}
+
 	// TODO: Return the drone plan
+	if params.MaxDistance != nil {
+		restPoint := helper.CalculateDroneWithMaxDistance(estate.Width, estate.Length, *params.MaxDistance, output)
+
+		return ctx.JSON(http.StatusOK, generated.GetEstateIDDronePlanResponse{
+			Distance: *params.MaxDistance,
+			Rest: &struct {
+				X int `json:"x"`
+				Y int `json:"y"`
+			}{
+				X: int(restPoint.FinalRow),
+				Y: int(restPoint.FinalCol),
+			},
+		})
+	}
 	return ctx.JSON(http.StatusOK, generated.GetEstateIDDronePlanResponse{
 		Distance: helper.CalculateDroneDistance(estate.Width, estate.Length, output),
 	})

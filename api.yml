@@ -48,7 +48,7 @@ paths:
           in: path
           description: ''
           required: true
-          example: '{{estate_id}}'
+          example: '{{id}}'
           schema:
             type: string
       requestBody:
@@ -56,12 +56,10 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PostEstateTreeRequest'
-            example: |-
-              {
-                  "x": {% faker random.numeric %},
-                  "y": {% faker random.numeric %},
-                  "height": {% faker random.numeric %} 
-              }
+            example:
+              x: 10
+              'y': 4
+              height: 1
       responses:
         '200':
           description: Success
@@ -83,7 +81,7 @@ paths:
           in: path
           description: ''
           required: true
-          example: '{{estate_id}}'
+          example: '{{id}}'
           schema:
             type: string
       responses:
@@ -108,7 +106,7 @@ paths:
           in: path
           description: ''
           required: true
-          example: '{{estate_id}}'
+          example: '{{id}}'
           schema:
             type: string
         - name: max_distance
@@ -256,8 +254,23 @@ components:
       properties:
         distance:
           type: integer
+        rest:
+          type: object
+          properties:
+            x:
+              type: integer
+            'y':
+              type: integer
+          x-apidog-orders:
+            - x
+            - 'y'
+          required:
+            - 'y'
+            - x
+          x-apidog-ignore-properties: []
       x-apidog-orders:
         - distance
+        - rest
       required:
         - distance
       x-apidog-ignore-properties: []
