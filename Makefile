@@ -21,7 +21,8 @@ test:
 
 test_api:
 	go clean -testcache
-	go test ./tests/...
+	go test  -v ./tests/...
+	
 
 generate: generated generate_mocks
 
