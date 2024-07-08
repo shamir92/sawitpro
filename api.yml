@@ -7,7 +7,7 @@ tags: []
 paths:
   /estate:
     post:
-      summary: This is just a test endpoint to get you started.
+      summary: /estate
       deprecated: false
       description: ''
       tags: []
@@ -31,7 +31,7 @@ paths:
           description: Not found
           content:
             application/json:
-              schema:
+              schema: &ref_1
                 $ref: '#/components/schemas/ErrorResponse'
       security: []
       x-apidog-folder: User Service
@@ -48,6 +48,7 @@ paths:
           in: path
           description: ''
           required: true
+          example: '{{estate_id}}'
           schema:
             type: string
       requestBody:
@@ -55,6 +56,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PostEstateTreeRequest'
+            example: |-
+              {
+                  "x": {% faker random.numeric %},
+                  "y": {% faker random.numeric %},
+                  "height": {% faker random.numeric %} 
+              }
       responses:
         '200':
           description: Success
@@ -76,6 +83,7 @@ paths:
           in: path
           description: ''
           required: true
+          example: '{{estate_id}}'
           schema:
             type: string
       responses:
@@ -100,12 +108,14 @@ paths:
           in: path
           description: ''
           required: true
+          example: '{{estate_id}}'
           schema:
             type: string
         - name: max_distance
           in: query
           description: ''
           required: false
+          example: '100'
           schema:
             type: integer
             default: 100
@@ -120,6 +130,36 @@ paths:
       x-apidog-folder: User Service
       x-apidog-status: developing
       x-run-in-apidog: https://app.apidog.com/web/project/590451/apis/api-8451647-run
+  /hello:
+    get:
+      summary: /hello
+      deprecated: false
+      description: ''
+      tags: []
+      parameters:
+        - name: id
+          in: query
+          description: ''
+          required: true
+          example: '10'
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloResponse'
+        '404':
+          description: Record Not Found
+          content:
+            application/json:
+              schema: *ref_1
+      security: []
+      x-apidog-folder: User Service
+      x-apidog-status: developing
+      x-run-in-apidog: https://app.apidog.com/web/project/590451/apis/api-8458967-run
 components:
   schemas:
     GetEstateIdStatsResponse:

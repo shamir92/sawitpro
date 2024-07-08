@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"testing"
 
@@ -270,6 +271,7 @@ func SendRequestGetDronePlan(distance int) RequestFunc {
 		} else {
 			url = fmt.Sprintf("%s/estate/%s/drone-plan?distance=%d", ApiUrl, id, distance)
 		}
+		log.Println(url)
 		return http.NewRequest("GET", url, nil)
 	}
 }

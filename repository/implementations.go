@@ -34,7 +34,7 @@ func (r *Repository) StoreEstateIdTree(ctx context.Context, input StoreEstateIdT
 }
 
 func (r *Repository) FetchEstateTrees(ctx context.Context, estateId uuid.UUID) (outputs []EstateTree, err error) {
-	row, err := r.Db.QueryContext(ctx, "SELECT id, height FROM estate_tree WHERE estate_id = $1", estateId)
+	row, err := r.Db.QueryContext(ctx, "SELECT id, height, x, y FROM estate_tree WHERE estate_id = $1", estateId)
 	if err != nil {
 		return
 	}
@@ -42,7 +42,7 @@ func (r *Repository) FetchEstateTrees(ctx context.Context, estateId uuid.UUID) (
 
 	for row.Next() {
 		var output EstateTree
-		row.Scan(&output.Id, &output.Height)
+		row.Scan(&output.Id, &output.Height, &output.X, &output.Y)
 		outputs = append(outputs, output)
 	}
 
