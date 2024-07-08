@@ -6,6 +6,8 @@ import (
 	"github.com/SawitProRecruitment/UserService/repository"
 )
 
+var DefaultMaxDistance int = 100000000000
+
 // CalculateDroneDistance calculates the total distance the drone needs to travel with a max distance limit.
 func CalculateDroneDistance(width, height, maxDistance int, trees []repository.EstateTree) int {
 	// Create a map for quick lookup of tree heights by their plot location.

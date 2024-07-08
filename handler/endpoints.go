@@ -40,6 +40,7 @@ func (s *Server) PostEstate(ctx echo.Context) error {
 
 func (s *Server) GetEstateIdDronePlan(ctx echo.Context, id string, params generated.GetEstateIdDronePlanParams) error {
 	// TODO: Validate that the estate exists
+	var maxDistance int = 0
 	estate, err := s.Repository.GetEstateByID(ctx.Request().Context(), repository.GetEstateByIDInput{
 		Id: uuid.MustParse(id),
 	})
@@ -57,13 +58,13 @@ func (s *Server) GetEstateIdDronePlan(ctx echo.Context, id string, params genera
 	if err != nil {
 		return err
 	}
-
-	var treeHeights []int
-	for _, tree := range output {
-		treeHeights = append(treeHeights, tree.Height)
+	if params.MaxDistance == nil {
+		maxDistance = helper.DefaultMaxDistance
 	}
-
-	return nil
+	// TODO: Return the drone plan
+	return ctx.JSON(http.StatusOK, generated.GetEstateIDDronePlanResponse{
+		Distance: helper.CalculateDroneDistance(estate.Width, estate.Length, maxDistance, output),
+	})
 }
 func (s *Server) GetEstateIdStats(ctx echo.Context, id string) error {
 	// TODO: Validate that the estate exists

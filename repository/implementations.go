@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"errors"
-	"log"
 
 	"github.com/google/uuid"
 )
@@ -20,7 +19,6 @@ func (r *Repository) GetEstateByID(ctx context.Context, input GetEstateByIDInput
 func (r *Repository) StoreEstate(ctx context.Context, input StoreEstateInput) (output StoreEstateOutput, err error) {
 	err = r.Db.QueryRowContext(ctx, "INSERT INTO estate (width, length) VALUES ($1, $2) RETURNING id", input.Width, input.Length).Scan(&output.Id)
 	if err != nil {
-		log.Println(err)
 		return StoreEstateOutput{}, errors.New("failed to store estate")
 	}
 
@@ -30,7 +28,6 @@ func (r *Repository) StoreEstate(ctx context.Context, input StoreEstateInput) (o
 func (r *Repository) StoreEstateIdTree(ctx context.Context, input StoreEstateIdTreeInput) (output StoreEstateIdTreeOutput, err error) {
 	err = r.Db.QueryRowContext(ctx, "INSERT INTO estate_tree (estate_id, height, x, y) VALUES ($1, $2, $3, $4) RETURNING id", input.EstateId, input.Height, input.X, input.Y).Scan(&output.Id)
 	if err != nil {
-		log.Println(err)
 		return StoreEstateIdTreeOutput{}, errors.New("failed to store tree")
 	}
 	return output, nil
