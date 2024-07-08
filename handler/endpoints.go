@@ -70,7 +70,7 @@ func (s *Server) GetEstateIdDronePlan(ctx echo.Context, id string, params genera
 		restPoint := helper.CalculateDroneWithMaxDistance(estate.Width, estate.Length, *params.MaxDistance, output)
 
 		return ctx.JSON(http.StatusOK, generated.GetEstateIDDronePlanResponse{
-			Distance: *params.MaxDistance,
+			Distance: restPoint.TotalDistance,
 			Rest: &struct {
 				X int `json:"x"`
 				Y int `json:"y"`
@@ -80,9 +80,12 @@ func (s *Server) GetEstateIdDronePlan(ctx echo.Context, id string, params genera
 			},
 		})
 	}
+
+	restPoint := helper.CalculateDroneWithMaxDistance(estate.Width, estate.Length, 0, output)
 	return ctx.JSON(http.StatusOK, generated.GetEstateIDDronePlanResponse{
-		Distance: helper.CalculateDroneDistance(estate.Width, estate.Length, output),
+		Distance: restPoint.TotalDistance,
 	})
+
 }
 func (s *Server) GetEstateIdStats(ctx echo.Context, id string) error {
 	// TODO: Validate that the estate exists
